@@ -10580,7 +10580,7 @@ exports.insert = function (css) {
 
 },{}],5:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
-var __vueify_style__ = __vueify_insert__.insert("\n.toaster {\n    bottom: 10px;\n    right: 10px;\n    position: fixed;\n    width: 260px;\n}\n.toaster .toast {\n    height: 80px;\n    margin-bottom: 10px;\n    background-color: #eee;\n    padding: 10px;\n}\n/* always present */\n.expand-transition {\n    -webkit-transition: all .5s ease;\n    transition: all .5s ease;\n    overflow: hidden;\n}\n/* .expand-enter defines the starting state for entering */\n/* .expand-leave defines the ending state for leaving */\n.expand-enter, .expand-leave {\n    height: 0;\n    padding: 0 10px;\n    opacity: 0;\n}\n")
+var __vueify_style__ = __vueify_insert__.insert("\n.toaster {\n    bottom: 10px;\n    right: 10px;\n    position: fixed;\n    width: 260px;\n}\n.toaster .toast {\n    height: 80px;\n    margin-bottom: 10px;\n    background-color: #eee;\n    padding: 10px;\n    cursor: pointer;\n}\n/* always present */\n.expand-transition {\n    -webkit-transition: all .5s ease;\n    transition: all .5s ease;\n    overflow: hidden;\n}\n/* .expand-enter defines the starting state for entering */\n/* .expand-leave defines the ending state for leaving */\n.expand-enter, .expand-leave {\n    height: 0;\n    padding: 0 10px;\n    opacity: 0;\n}\n")
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10588,7 +10588,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 
-var selfDestruct = 2500;
+var selfDestruct = 13500;
 exports.default = {
     props: {
         toasts: {
@@ -10619,14 +10619,14 @@ exports.default = {
         toasts: function toasts(val) {
             var self = this;
             // For evey new toast, set a dismiss timer
-            var newToasts = val.filter(function (elem) {
-                return elem.processed != true;
-            });
-            newToasts.forEach(function (elem, index) {
-                elem.processed = true;
-                setTimeout(function () {
-                    self.toasts.splice(index, 1);
-                }, selfDestruct);
+            val.forEach(function (elem, index) {
+                console.log(index);
+                if (!elem.id) {
+                    self.toasts[index].id = Date.now() + self.toasts.length;
+                    setTimeout(function () {
+                        self.toasts.splice(index, 1);
+                    }, selfDestruct);
+                }
             });
         }
     }
@@ -10638,7 +10638,7 @@ if (module.hot) {(function () {  module.hot.accept()
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.dispose(function () {
-    __vueify_insert__.cache["\n.toaster {\n    bottom: 10px;\n    right: 10px;\n    position: fixed;\n    width: 260px;\n}\n.toaster .toast {\n    height: 80px;\n    margin-bottom: 10px;\n    background-color: #eee;\n    padding: 10px;\n}\n/* always present */\n.expand-transition {\n    -webkit-transition: all .5s ease;\n    transition: all .5s ease;\n    overflow: hidden;\n}\n/* .expand-enter defines the starting state for entering */\n/* .expand-leave defines the ending state for leaving */\n.expand-enter, .expand-leave {\n    height: 0;\n    padding: 0 10px;\n    opacity: 0;\n}\n"] = false
+    __vueify_insert__.cache["\n.toaster {\n    bottom: 10px;\n    right: 10px;\n    position: fixed;\n    width: 260px;\n}\n.toaster .toast {\n    height: 80px;\n    margin-bottom: 10px;\n    background-color: #eee;\n    padding: 10px;\n    cursor: pointer;\n}\n/* always present */\n.expand-transition {\n    -webkit-transition: all .5s ease;\n    transition: all .5s ease;\n    overflow: hidden;\n}\n/* .expand-enter defines the starting state for entering */\n/* .expand-leave defines the ending state for leaving */\n.expand-enter, .expand-leave {\n    height: 0;\n    padding: 0 10px;\n    opacity: 0;\n}\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {

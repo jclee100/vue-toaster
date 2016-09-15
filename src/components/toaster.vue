@@ -13,7 +13,7 @@
     </div>
 </template>
 <script type="text/babel">
-    let selfDestruct = 2500;
+    let selfDestruct = 3500;
     export default {
         props: {
             toasts: {
@@ -41,14 +41,14 @@
             toasts(val) {
                 let self = this;
                 // For evey new toast, set a dismiss timer
-                let newToasts = val.filter((elem) => {
-                    return elem.processed != true;
-                });
-                newToasts.forEach((elem, index) => {
-                    elem.processed = true;
-                    setTimeout(function(){
-                        self.toasts.splice(index, 1);
-                    }, selfDestruct)
+                val.forEach((elem, index) => {
+                    console.log(index);
+                    if(!elem.id) {
+                        self.toasts[index].id = Date.now() + self.toasts.length;
+                        setTimeout(function(){
+                            self.toasts.splice(index, 1);
+                        }, selfDestruct);
+                    }
                 });
             }
         }
@@ -66,6 +66,7 @@
         margin-bottom: 10px;
         background-color: #eee;
         padding: 10px;
+        cursor: pointer;
     }
     /* always present */
     .expand-transition {
