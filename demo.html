@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app">
+    <p>Click to show a toast on the bottom right of the screen.</p>
+    <button @click="addToast">Toast!</button>
+
+    <toaster :toasts="toasts"></toaster>
+</div>
+<script src="build/main.js"></script>
+</body>
+</html>
