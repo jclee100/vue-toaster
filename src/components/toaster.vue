@@ -38,15 +38,14 @@
             }
         },
         watch: {
-            toasts(val) {
+            toasts() {
                 let self = this;
                 // For evey new toast, set a dismiss timer
-                val.forEach((elem, index) => {
-                    console.log(index);
+                this.toasts.forEach((elem, index) => {
                     if(!elem.id) {
                         self.toasts[index].id = Date.now() + self.toasts.length;
                         setTimeout(function(){
-                            self.toasts.splice(index, 1);
+                            self.close(elem);
                         }, selfDestruct);
                     }
                 });

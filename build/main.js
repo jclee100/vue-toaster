@@ -10588,7 +10588,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 
-var selfDestruct = 13500;
+var selfDestruct = 3500;
 exports.default = {
     props: {
         toasts: {
@@ -10616,15 +10616,14 @@ exports.default = {
         }
     },
     watch: {
-        toasts: function toasts(val) {
+        toasts: function toasts() {
             var self = this;
             // For evey new toast, set a dismiss timer
-            val.forEach(function (elem, index) {
-                console.log(index);
+            this.toasts.forEach(function (elem, index) {
                 if (!elem.id) {
                     self.toasts[index].id = Date.now() + self.toasts.length;
                     setTimeout(function () {
-                        self.toasts.splice(index, 1);
+                        self.close(elem);
                     }, selfDestruct);
                 }
             });
